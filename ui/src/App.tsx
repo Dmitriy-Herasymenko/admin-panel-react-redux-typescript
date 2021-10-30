@@ -1,10 +1,10 @@
 import React from 'react';
-import { BasicTable } from "./modules/tabels";
+import { UserList } from "./components/userList";
 
 function App() {
   return (
     <div className="App">
-        <BasicTable />
+        <UserList />
     </div>
   );
 }
