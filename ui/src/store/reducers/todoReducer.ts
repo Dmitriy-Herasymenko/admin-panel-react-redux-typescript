@@ -8,7 +8,7 @@ const initialState: TodoState = {
     loading: false
 };
 
-export const todoReducer = (state = initialState, action = TodoAction) : TodoState => {
+export const todoReducer = (state = initialState, action: TodoAction) : TodoState => {
     switch(action.type) {
         case TodoActionTypes.FETCH_TODOS:
             return {...state, loading: true};

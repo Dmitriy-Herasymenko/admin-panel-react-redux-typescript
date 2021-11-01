@@ -1,12 +1,11 @@
 import React, {useEffect} from 'react';
 import {useTypedSelector} from "../hooks/useTypedSelector";
-import {fetchUsers} from "../store/action-creator/user";
 import {useActions} from "../hooks/useActions";
 
 export const UserList: React.FC = () => {
     const {users, error, loading} = useTypedSelector( state => state.users);
     const {fetchUsers} = useActions();
-    console.log("users", users)
+
     useEffect(() => {
         fetchUsers()
 },[]);
