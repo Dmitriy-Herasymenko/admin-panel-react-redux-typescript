@@ -1,5 +1,5 @@
 import {Dispatch} from "react";
-import {UserAction, userActionTypes} from "../../types/users";
+import {UserAction, userActionTypes} from "../../types/user";
 import axios from "axios";
 
 
