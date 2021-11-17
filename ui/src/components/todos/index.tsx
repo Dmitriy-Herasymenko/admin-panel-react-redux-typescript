@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
+import React from "react";
 
-export const TodoList: React.FC = () => {
+export const TodosList: React.FC = () => {
 
     return (
         <div>

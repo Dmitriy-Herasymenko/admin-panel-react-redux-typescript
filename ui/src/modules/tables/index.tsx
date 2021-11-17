@@ -19,7 +19,7 @@ export const BasicTable: React.FC<IProps> = ({columns, rows}) => {
                     <TableRow>
                         {
                             columns.map((col) =>
-                                <TableCell key={col.key}>{col.title}</TableCell>)
+                                <TableCell align="center" key={col.key}>{col.title}</TableCell>)
                         }
                     </TableRow>
                 </TableHead>
@@ -29,7 +29,7 @@ export const BasicTable: React.FC<IProps> = ({columns, rows}) => {
                             <TableRow key={row.id}>
                                 {columns.map((col: any) =>
 
-                                    <TableCell key={col.key}>{row[col.key]}</TableCell>
+                                    <TableCell align="center" key={col.key}>{row[col.key]}</TableCell>
                                 )}
                             </TableRow>
                         )

@@ -1,15 +1,18 @@
 import React, {useEffect} from 'react';
 import {useDispatch} from "react-redux";
-import {useAppSelector} from "../hooks/redux";
-import {fetchUsers} from "../store/reducers/users/userReducers";
-import {BasicTable} from "../modules/tables";
+import {useAppSelector} from "../../hooks/redux";
+import {fetchUsers} from "../../store/reducers/users/userReducers";
+import {BasicTable} from "../../modules/tables";
 
 const columns = [
     {title: 'Name', key: 'name'},
-    {title: 'Email', key: 'email'}
+    {title: 'Email', key: 'email'},
+    {title: 'Username', key: 'username'},
+    {title: 'Phone', key: 'phone'},
+    {title: 'Website', key: 'website'}
 ];
 
-export const UserList: React.FC = () => {
+export const UsersList: React.FC = () => {
     const dispatch = useDispatch();
     const {users, loading, error} = useAppSelector(state => state.usersReducer);
     useEffect(() => {

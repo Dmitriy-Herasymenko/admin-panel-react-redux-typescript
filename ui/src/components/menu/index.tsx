@@ -10,9 +10,9 @@ interface Props {
 export const ResponsiveDrawer = (props: Props) => {
 
     return (
-        <Box>
+        <>
             <Header/>
             <Sidebar/>
-        </Box>
+        </>
     );
 }
