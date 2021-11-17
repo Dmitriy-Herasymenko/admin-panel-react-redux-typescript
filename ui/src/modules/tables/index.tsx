@@ -1,45 +1,41 @@
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from '@mui/material';
 
+interface IColumns {
+    title: string,
+    key: string
+}
 
-const rows = [
-    {name: 'Vasili', age: 23, position: 'Barest', exp: '1 year', city: 'Uman'},
-    {name: 'Andrew', age: 37, position: 'TechMachine', exp: '3 year', city: 'Uman'},
-    {name: 'Vasili', age: 23, position: 'Barest', exp: '2 year', city: 'Uman'},
-    {name: 'Vasili', age: 23, position: 'Barest', exp: '1 year', city: 'Uman'},
-    {name: 'Vasili', age: 23, position: 'Barest', exp: '1 year', city: 'Uman'},
-];
+interface IProps {
+    columns: IColumns[],
+    rows: Array<any>
+}
 
-export const BasicTable = () => {
+export const BasicTable: React.FC<IProps> = ({columns, rows}) => {
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Age</TableCell>
-                        <TableCell>Position</TableCell>
-                        <TableCell>Experience</TableCell>
-                        <TableCell>City</TableCell>
+                        {
+                            columns.map((col) =>
+                                <TableCell key={col.key}>{col.title}</TableCell>)
+                        }
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row,index) => (
-                        <TableRow key={index}>
-                            <TableCell>{row.name}</TableCell>
-                            <TableCell>{row.age}</TableCell>
-                            <TableCell>{row.position}</TableCell>
-                            <TableCell>{row.exp}</TableCell>
-                            <TableCell>{row.city}</TableCell>
-                        </TableRow>
-                    ))}
+                    {
+                        rows.map((row) =>
+                            <TableRow key={row.id}>
+                                {columns.map((col: any) =>
+
+                                    <TableCell key={col.key}>{row[col.key]}</TableCell>
+                                )}
+                            </TableRow>
+                        )
+                    }
                 </TableBody>
+
             </Table>
         </TableContainer>
     );

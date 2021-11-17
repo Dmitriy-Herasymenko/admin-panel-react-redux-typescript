@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {Header} from '../../components/header/index';
-import {Sidebar} from '../../components/drawer/index';
+import {Header} from '../header';
+import {Sidebar} from '../drawer';
 import Box from '@mui/material/Box';
 
 interface Props {
