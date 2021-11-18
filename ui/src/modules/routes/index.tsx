@@ -7,12 +7,12 @@ export const links = [
     {
         title: 'Users',
         link: '/users',
-        icon:  <Send />
+        icon:  <Send  style={{fontSize: '1rem'}}/>
     },
     {
         title: 'Todos',
         link: '/todos',
-        icon:  <Drafts />
+        icon:  <Drafts style={{fontSize: '1rem'}}/>
     }
 ];
 

@@ -17,7 +17,7 @@ export const Header = () => {
                     component="div"
                     sx={{display: {xs: 'none', sm: 'block'}}}
                 >
-                    MUI
+                    HeaderLogo
                 </Typography>
                 <Box sx={{flexGrow: 1}}/>
                 <Box sx={{display: {xs: 'none', md: 'flex'}}} style={{color: '#6200ee'}}>
