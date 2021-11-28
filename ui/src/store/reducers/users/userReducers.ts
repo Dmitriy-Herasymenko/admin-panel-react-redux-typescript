@@ -11,14 +11,14 @@ const initialState: userState = {
 
 export const fetchUsers = () => async (dispatch: AppDispatch) => {
     try {
-        dispatch(usersReducer.actions.FETCH_USERS())
+        dispatch(usersReducer.actions.FETCH_USERS());
         const response = await axios.get<IUsers[]>('https://jsonplaceholder.typicode.com/users');
         dispatch(usersReducer.actions.FETCH_USERS_SUCCESS(response.data))
     } catch (e) {
         // @ts-ignore
         dispatch(usersReducer.actions.FETCH_USERS_ERROR(e.message))
     }
-}
+};
 
 
 const usersReducer = createSlice({

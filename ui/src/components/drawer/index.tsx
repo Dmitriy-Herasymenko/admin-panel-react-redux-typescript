@@ -14,8 +14,8 @@ export const Sidebar: React.FC = () => {
                     aria-labelledby="nested-list-subheader"
                 >
                     {
-                        links.map(link =>
-                            <ListItemButton>
+                        links.map((link, index) =>
+                            <ListItemButton key={index}>
                                 <ListItemIcon
                                     style={{color: '#6200ee', minWidth: '30px'}}
                                 >
