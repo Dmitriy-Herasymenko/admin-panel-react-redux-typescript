@@ -9,7 +9,7 @@ interface IModalActionsItems {
     text: string;
 }
 
-interface IModalTypeContent {
+export interface IModalTypeContent {
     key: string;
     label: string;
     type: string;

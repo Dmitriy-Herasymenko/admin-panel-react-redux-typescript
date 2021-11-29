@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState: modalState = {
     status: false,
-    modalData: []
+    modalData: {}
 };
 
 
@@ -16,7 +16,7 @@ export const modalReducer = createSlice({
             state.status = true
         },
         CLEAR_MODAL_ITEMS(state) {
-            state.modalData = [];
+            state.modalData = {};
             state.status = false
         }
     }

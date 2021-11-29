@@ -5,6 +5,7 @@ import {fetchTodos, postTodo} from "../../store/reducers/todos/todoReducer";
 import {BasicTable} from "../../modules/tables";
 import {FormDialog} from "../../modules/modal";
 import {modalReducer} from "../../store/reducers/modal/modalReducer";
+import {IModalTypeContent} from "../../types/modal";
 
 const columns = [
     {title: 'Title', key: 'title'},
@@ -26,8 +27,15 @@ const modalSettings = {
             label: 'Body',
             type: 'TextField',
             variant: 'standard'
+        },
+        {
+            key: 'users',
+            label: 'Users',
+            type: 'Select',
+            variant: 'standard',
+            items: [{value: 'User1', text: 'User1'},{value: 'User2', text: 'User2'}]
         }
-    ],
+    ] as IModalTypeContent[],
     actionsContent: [
         {
             click: 'handleClose',

@@ -18,11 +18,14 @@ import {
 } from '@mui/material';
 import {styles} from './styles';
 
+interface IDataState {
+    [key: string] : string
+}
 
 export const FormDialog: React.FC<IModalSettings> = ({settings}) => {
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
-    const [data, setData] = React.useState({});
+    const [data, setData] = React.useState<IDataState>({});
 
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -71,14 +74,14 @@ export const FormDialog: React.FC<IModalSettings> = ({settings}) => {
                                                     id="demo-simple-select"
                                                     input={<OutlinedInput label={content.text}/>}
                                                     label={content.label}
-                                                    defaultValue={content.items[0].value}
+                                                    defaultValue={content.items?.[0].value}
                                                     onChange={e => setData(() => {
                                                         const newData = {...data};
                                                         newData[content.key] = e.target.value;
                                                         return newData;
                                                     })}
                                                 >
-                                                    {content.items.map((item: any, index: number) => <MenuItem
+                                                    {content.items?.map((item, index) => <MenuItem
                                                         key={index}
                                                         value={item.value}>{item.text}</MenuItem>)}
                                                 </Select>
