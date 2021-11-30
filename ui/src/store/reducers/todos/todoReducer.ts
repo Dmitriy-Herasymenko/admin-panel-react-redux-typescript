@@ -9,6 +9,21 @@ const initialState: todosState = {
     todos: []
 };
 
+export const putTodo = (props: any) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(todosReducer.actions.PUT_TODOS_FETCH());
+        const response = await axios.put<any>(`https://jsonplaceholder.typicode.com/posts/${props.id}`, {
+            id: props.id,
+            title: props.title,
+            userId: Date.now()
+        });
+        dispatch(todosReducer.actions.PUT_TODOS_SUCCESS(response.data))
+    } catch (e) {
+        // @ts-ignore
+        dispatch(todosReducer.actions.FETCH_TODOS_ERROR(e.error))
+    }
+};
+
 export const postTodo = (props: any) => async (dispatch: AppDispatch) => {
     try {
         dispatch(todosReducer.actions.POST_TODOS_FETCH());
@@ -62,8 +77,15 @@ const todosReducer = createSlice({
             POST_TODOS_FETCH(state) {
                 state.loading = true;
                 state.error = null;
-            }
-        }
-    });
+            },
+            PUT_TODOS_SUCCESS(state, actions: PayloadAction<any>) {
+                state.loading = false;
+                state.error = null;
+                state.todos = [...state.todos, actions.payload];
+            },
+            PUT_TODOS_FETCH(state) {
+                state.loading = true;
+            },
+    }});
 
 export default todosReducer.reducer

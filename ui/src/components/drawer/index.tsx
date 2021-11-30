@@ -2,14 +2,15 @@ import * as React from 'react';
 import {List, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
 import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import {links, routes} from "../../modules/routes";
+import {styles} from "./styles";
 
 
 export const Sidebar: React.FC = () => {
     return (
-        <div style={{display: 'flex', backgroundColor: '#f0f0f8', padding: '20px'}}>
+        <div style={styles.container}>
             <BrowserRouter>
                 <List
-                    sx={{width: '100%', maxWidth: 150, height: '100vh', bgcolor: '#f0f0f8'}}
+                    sx={styles.list}
                     component="nav"
                     aria-labelledby="nested-list-subheader"
                 >
@@ -17,20 +18,16 @@ export const Sidebar: React.FC = () => {
                         links.map((link, index) =>
                             <ListItemButton key={index}>
                                 <ListItemIcon
-                                    style={{color: '#6200ee', minWidth: '30px'}}
+                                    style={styles.listItemIcon}
                                 >
                                     {link.icon}
                                 </ListItemIcon>
                                 <Link
                                     to={link.link}
-                                    style={{textDecoration: 'none'}}
+                                    style={styles.link}
                                 >
                                     <ListItemText
-                                        primary={<span style={{
-                                            color: '#000',
-                                            fontSize: '14px',
-                                            fontWeight: 'normal'
-                                        }}
+                                        primary={<span style={styles.listItemText}
                                         >{link.title}</span>}
                                     />
                                 </Link>

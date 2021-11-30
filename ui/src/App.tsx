@@ -1,7 +1,7 @@
 import React from 'react';
-import { ResponsiveDrawer } from "./components/menu/";
+import { ResponsiveDrawer } from './components/menu';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
         <ResponsiveDrawer />

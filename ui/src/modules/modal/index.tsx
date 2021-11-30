@@ -22,7 +22,7 @@ interface IDataState {
     [key: string] : string
 }
 
-export const FormDialog: React.FC<IModalSettings> = ({settings}) => {
+export const Modal: React.FC<IModalSettings> = ({settings}) => {
     const dispatch = useDispatch();
     const [open, setOpen] = React.useState(false);
     const [data, setData] = React.useState<IDataState>({});
@@ -34,6 +34,7 @@ export const FormDialog: React.FC<IModalSettings> = ({settings}) => {
         handleClose();
     };
 
+    // @ts-ignore
     return (
         <div style={{padding: '25px'}}>
             <Button variant="outlined" onClick={handleClickOpen} style={styles.btn}>{settings.titleBtn}</Button>
@@ -95,8 +96,12 @@ export const FormDialog: React.FC<IModalSettings> = ({settings}) => {
                     </Box>
                 </DialogContent>
                 <div style={styles.actions}>
-                    {settings.actionsContent.map((btn, index) => <Button key={index}
-                        onClick={btn.click === 'handleClose' ? handleClose : handleSetData}>{btn.text}</Button>)
+                    {settings.actionsContent.map((btn, index) => <Button
+                        key={index}
+                        style={styles.btnActions}
+                        onClick={btn.click === 'handleClose' ? handleClose : handleSetData}>
+                        {btn.text}
+                    </Button>)
                     }
                 </div>
             </Dialog>
