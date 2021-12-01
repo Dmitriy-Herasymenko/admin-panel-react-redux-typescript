@@ -92,7 +92,7 @@ const todosReducer = createSlice({
             PUT_TODOS_SUCCESS(state, actions: PayloadAction<any>) {
                 state.loading = false;
                 state.error = null;
-                state.todos = [...state.todos, actions.payload];
+                state.todos = state.todos.map(todo => todo.id === actions.payload.id ? actions.payload : todo);
             },
             PUT_TODOS_FETCH(state) {
                 state.loading = true;
