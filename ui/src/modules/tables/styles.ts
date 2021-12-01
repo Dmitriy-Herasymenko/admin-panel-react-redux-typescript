@@ -18,14 +18,25 @@ export const styles = {
         fontSize: '12px',
         fontWeight: 'initial'
     },
-    editIcon: {
-
-    },
-    deleteIcon:{
+    editIcon: {},
+    deleteIcon: {
         marginLeft: '10px',
         color: '#ff420f'
     },
-    deleteBtn:{
+    deleteBtn: {
         color: '#ff420f'
     },
+    pagination: {
+        padding: '25px',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        width: '113%',
+    },
+    paginationItem: {
+        color: '#fff',
+        backgroundColor: '#6200ee',
+        '&:hover': {
+            backgroundColor: '000',
+        },
+    }
 }
