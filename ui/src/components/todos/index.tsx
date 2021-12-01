@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../hooks/redux";
-import {fetchTodos, postTodo, putTodo} from "../../store/reducers/todos/todoReducer";
+import {fetchTodos, postTodo, putTodo, deleteTodo} from "../../store/reducers/todos/todoReducer";
 import {BasicTable} from "../../modules/tables";
 import {Modal} from "../../modules/modal";
 import {modalReducer} from "../../store/reducers/modal/modalReducer";
@@ -10,8 +10,7 @@ import {IModalTypeContent} from "../../types/modal";
 
 const columns = [
     {title: 'Title', key: 'title'},
-    {title: 'Completed', key: 'completed'},
-    {title: 'Actions', key: 'actions', edit: true},
+    {title: 'Actions', key: 'actions', edit: true, delete: true},
 ];
 const modalSettings = {
     titleBtn: 'Add Post',
@@ -23,19 +22,6 @@ const modalSettings = {
             label: 'Title',
             type: 'TextField',
             variant: 'standard'
-        },
-        {
-            key: 'body',
-            label: 'Body',
-            type: 'TextField',
-            variant: 'standard'
-        },
-        {
-            key: 'users',
-            label: 'Users',
-            type: 'Select',
-            variant: 'standard',
-            items: [{value: 'User1', text: 'User1'},{value: 'User2', text: 'User2'}]
         }
     ] as IModalTypeContent[],
     actionsContent: [
@@ -54,7 +40,7 @@ export const TodosList: React.FC = () => {
     const dispatch = useDispatch();
     const {todos, loading, error} = useAppSelector(state => state.todosReducer);
     const {modalData, status} = useAppSelector(state => state.modalReducer);
-    const {tableData, statusTable} = useAppSelector(state => state.tableReducer);
+    const {tableData, statusTablePut, statusTableDelete} = useAppSelector(state => state.tableReducer);
 
     useEffect(() => {
         dispatch(fetchTodos());
@@ -66,11 +52,16 @@ export const TodosList: React.FC = () => {
         }
     }, [dispatch, status, modalData]);
     useEffect(() => {
-        if(statusTable) {
+        if(statusTablePut) {
             dispatch(putTodo(tableData));
             dispatch(tableReducer.actions.CLEAR_TABLE_ITEMS());
         }
-    }, [dispatch, statusTable, tableData]);
+        if(statusTableDelete) {
+            dispatch(deleteTodo(tableData));
+            dispatch(tableReducer.actions.CLEAR_TABLE_ITEMS());
+        }
+
+    }, [dispatch, statusTablePut, statusTableDelete, tableData]);
 
     if (loading) return <h1>Loading...</h1>;
     if (error) return <h1>{error}</h1>;

@@ -9,6 +9,17 @@ const initialState: todosState = {
     todos: []
 };
 
+export const deleteTodo = (props: any) => async (dispatch: AppDispatch) => {
+    try {
+        dispatch(todosReducer.actions.DELETE_TODOS_FETCH());
+        const response = await axios.delete<any>(`https://jsonplaceholder.typicode.com/posts/${props.id}`);
+        dispatch(todosReducer.actions.DELETE_TODOS_SUCCESS(props.id))
+    } catch (e) {
+        // @ts-ignore
+        dispatch(todosReducer.actions.FETCH_TODOS_ERROR(e.error))
+    }
+};
+
 export const putTodo = (props: any) => async (dispatch: AppDispatch) => {
     try {
         dispatch(todosReducer.actions.PUT_TODOS_FETCH());
@@ -84,6 +95,14 @@ const todosReducer = createSlice({
                 state.todos = [...state.todos, actions.payload];
             },
             PUT_TODOS_FETCH(state) {
+                state.loading = true;
+            },
+            DELETE_TODOS_SUCCESS(state, actions: PayloadAction<any>) {
+                state.todos = state.todos.filter(todo => todo.id !== actions.payload)
+                state.loading = false;
+                state.error = null;
+                },
+            DELETE_TODOS_FETCH(state) {
                 state.loading = true;
             },
     }});

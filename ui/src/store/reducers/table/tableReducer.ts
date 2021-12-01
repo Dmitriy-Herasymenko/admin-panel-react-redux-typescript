@@ -1,7 +1,8 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState: any = {
-    statusTable: false,
+    statusTablePut: false,
+    statusTableDelete: false,
     tableData: {}
 };
 
@@ -12,11 +13,13 @@ export const tableReducer = createSlice({
     reducers: {
         ADD_TABLE_ITEMS(state, actions: PayloadAction<any>) {
             state.tableData = actions.payload;
-            state.statusTable = true
+            if(actions.payload.typeRequest === 'put')state.statusTablePut = true;
+            if(actions.payload.typeRequest === 'delete')state.statusTableDelete = true;
         },
         CLEAR_TABLE_ITEMS(state) {
             state.tableData = {};
-            state.statusTable = false
+            state.statusTablePut = false;
+            state.statusTableDelete = false;
         }
     }
 });

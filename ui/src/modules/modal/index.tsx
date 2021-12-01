@@ -33,8 +33,6 @@ export const Modal: React.FC<IModalSettings> = ({settings}) => {
         dispatch(modalReducer.actions.ADD_MODAL_ITEMS(data));
         handleClose();
     };
-
-    // @ts-ignore
     return (
         <div style={{padding: '25px'}}>
             <Button variant="outlined" onClick={handleClickOpen} style={styles.btn}>{settings.titleBtn}</Button>

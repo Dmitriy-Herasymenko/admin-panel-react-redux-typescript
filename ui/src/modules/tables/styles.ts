@@ -18,7 +18,14 @@ export const styles = {
         fontSize: '12px',
         fontWeight: 'initial'
     },
-    edit: {
+    editIcon: {
 
-    }
+    },
+    deleteIcon:{
+        marginLeft: '10px',
+        color: '#ff420f'
+    },
+    deleteBtn:{
+        color: '#ff420f'
+    },
 }
