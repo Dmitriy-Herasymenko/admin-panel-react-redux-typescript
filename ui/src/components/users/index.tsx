@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../hooks/redux";
 import {fetchUsers} from "../../store/reducers/users/userReducers";
-import {BasicTable} from "../../modules/tables";
+import {BasicTable} from "../../modules/table";
 
 const columns = [
     {title: 'Name', key: 'name'},

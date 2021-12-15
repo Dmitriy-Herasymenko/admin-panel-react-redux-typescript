@@ -28,9 +28,6 @@ export const styles = {
     },
     pagination: {
         padding: '25px',
-        display: 'flex',
-        justifyContent: 'flex-end',
-        width: '113%',
     },
     paginationItem: {
         color: '#fff',

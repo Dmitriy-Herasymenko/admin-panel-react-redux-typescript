@@ -2,14 +2,14 @@ import React, {useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../hooks/redux";
 import {fetchTodos, postTodo, putTodo, deleteTodo} from "../../store/reducers/todos/todoReducer";
-import {BasicTable} from "../../modules/tables";
+import {BasicTable} from "../../modules/table";
 import {Modal} from "../../modules/modal";
 import {modalReducer} from "../../store/reducers/modal/modalReducer";
 import {tableReducer} from "../../store/reducers/table/tableReducer";
 import {IModalTypeContent} from "../../types/modal";
 
 const columns = [
-    {title: 'Title', key: 'title'},
+    {title: 'Title', key: 'title', sort: true},
     {title: 'Actions', key: 'actions', edit: true, delete: true},
 ];
 const modalSettings = {
