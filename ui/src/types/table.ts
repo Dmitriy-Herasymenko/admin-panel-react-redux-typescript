@@ -1,4 +1,4 @@
-interface IColumns {
+interface IColumn {
     title: string,
     key: string,
     sort?: boolean,
@@ -7,6 +7,6 @@ interface IColumns {
 }
 
 export interface IProps {
-    columns: IColumns[],
+    columns: IColumn[],
     rows: Array<any>
 }

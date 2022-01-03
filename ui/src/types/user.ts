@@ -1,4 +1,4 @@
-export interface IUsers {
+export interface IUser {
     id: number,
     name: string,
     email: string,
@@ -8,7 +8,7 @@ export interface IUsers {
 }
 
 export interface userState {
-    users: IUsers[];
+    users: IUser[];
     loading: boolean;
     error: null | string;
 }

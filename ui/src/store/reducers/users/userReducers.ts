@@ -1,4 +1,4 @@
-import {IUsers, userState} from "../../../types/user";
+import {IUser, userState} from "../../../types/user";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppDispatch} from "../../index";
 import axios from "axios";
@@ -12,7 +12,7 @@ const initialState: userState = {
 export const fetchUsers = () => async (dispatch: AppDispatch) => {
     try {
         dispatch(usersReducer.actions.FETCH_USERS());
-        const response = await axios.get<IUsers[]>('https://jsonplaceholder.typicode.com/users');
+        const response = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users');
         dispatch(usersReducer.actions.FETCH_USERS_SUCCESS(response.data))
     } catch (e) {
         // @ts-ignore
@@ -30,7 +30,7 @@ const usersReducer = createSlice({
             state.error = null;
             state.users = []
         },
-        FETCH_USERS_SUCCESS(state, actions: PayloadAction<IUsers[]>) {
+        FETCH_USERS_SUCCESS(state, actions: PayloadAction<IUser[]>) {
             state.loading = false;
             state.error = null;
             state.users = actions.payload;

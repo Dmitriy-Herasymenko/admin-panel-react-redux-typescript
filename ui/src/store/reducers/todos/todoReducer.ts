@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ITodos, todosState} from "../../../types/todo";
+import {ITodo, todosState} from "../../../types/todo";
 import {AppDispatch} from "../../index";
 import axios from "axios";
 
@@ -53,7 +53,7 @@ export const postTodo = (props: any) => async (dispatch: AppDispatch) => {
 export const fetchTodos = () => async (dispatch: AppDispatch) => {
     try {
         dispatch(todosReducer.actions.FETCH_TODOS());
-        const response = await axios.get<ITodos[]>('https://jsonplaceholder.typicode.com/todos');
+        const response = await axios.get<ITodo[]>('https://jsonplaceholder.typicode.com/todos');
         dispatch(todosReducer.actions.FETCH_TODOS_SUCCESS(response.data))
     } catch (e) {
         // @ts-ignore
@@ -70,7 +70,7 @@ const todosReducer = createSlice({
                 state.loading = true;
                 state.error = null;
             },
-            FETCH_TODOS_SUCCESS(state, actions: PayloadAction<ITodos[]>) {
+            FETCH_TODOS_SUCCESS(state, actions: PayloadAction<ITodo[]>) {
                 state.loading = false;
                 state.error = null;
                 state.todos = actions.payload;
