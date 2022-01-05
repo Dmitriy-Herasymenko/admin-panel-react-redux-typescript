@@ -26,8 +26,13 @@ export const styles = {
     deleteBtn: {
         color: '#ff420f'
     },
+    paginationContainer: {
+        display: 'flex',
+        justifyContent: "end",
+        marginTop: '25px',
+        marginBottom: '25px',
+    },
     pagination: {
-        padding: '25px',
     },
     paginationItem: {
         color: '#fff',
@@ -35,5 +40,12 @@ export const styles = {
         '&:hover': {
             backgroundColor: '000',
         },
+    },
+    select: {
+        width: '70px',
+        height: '32px',
+        marginLeft: "50px",
+        color: '#fff',
+        backgroundColor: '#6200ee',
     }
 }

@@ -14,40 +14,105 @@ import {
     Dialog,
     DialogActions,
     DialogTitle,
-    Pagination,
     TableFooter,
-    PaginationItem
 } from '@mui/material';
+import TablePagination from '@mui/material/TablePagination';
 import {Edit, Done, Close, Delete, ArrowDropDown, ArrowDropUp} from "@mui/icons-material";
 import {sortRows} from "./sortRows";
-import {styles} from "./styles";
-import {IProps} from "../../types/table";
 
-export const BasicTable: React.FC<IProps> = ({columns, rows}) => {
+import {IProps} from "../../types/table";
+import {styles} from "./styles";
+
+export const BasicTable: React.FC<IProps> = ({columns, rows, pagination}) => {
     const dispatch = useDispatch();
     const [openDialog, setOpenDialog] = useState(false);
     const [edit, setEdit] = useState(false);
     const [idRow, setIdRow] = useState<number>();
     const [dataRow, setDataRow] = useState({});
-    const [pages, setPages] = useState<number>(10);
-    const [currentPage, setCurrentPage] = useState<any>(1);
     const [sortArray, setSortArray] = useState<any[]>(rows);
     const [sort, setSort] = useState<any>(true)
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-    const start = (currentPage - 1) * pages;
-    const end = start + pages
 
     const deleteRow = (id: number) => {
         setIdRow(id);
         setOpenDialog(true)
         setDataRow({});
-    }
+    };
     const handleSubmit = (typeRequest: string) => {
         dispatch(tableReducer.actions.ADD_TABLE_ITEMS({...dataRow, id: idRow, typeRequest}));
         setEdit(false)
-    }
-    const handleChange = (event: ChangeEvent<unknown>, value: number) => setCurrentPage(value);
+    };
 
+    const handleChangePage = (
+        event: React.MouseEvent<HTMLButtonElement> | null,
+        newPage: number,
+    ) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
+    const checkRenderBody = (row: any, col: any) => {
+        if (row.id === idRow && edit) return (
+            <>
+                {
+                    !col.edit ?
+                        <>
+                            <TextField
+                                variant="standard"
+                                onChange={e =>  setDataRow( () => {
+                                        const newData = {...dataRow};
+                                        // @ts-ignore
+                                        newData[col.key] = e.target.value
+                                        return newData
+                                    })
+                                }
+
+
+
+                            />
+                            <Done onClick={() => handleSubmit('put')}/>
+                            <Close onClick={() => {
+                                setEdit(false)
+                                console.log('sss', edit)
+                            }}/>
+                        </>
+                        : <></>
+                }
+            </>
+        )
+        if (col.edit) return (
+            <>
+                {row[col.key]}
+                {col.edit ?
+                    <Edit
+                        onClick={() => {
+                            setIdRow(row.id);
+                            setEdit(true)
+                        }}
+                    /> : <></>
+                }
+                {col.delete ?
+                    <Delete
+                        style={styles.deleteIcon}
+                        onClick={() => deleteRow(row.id)}
+                    /> : <></>
+                }
+            </>
+        )
+        return (
+            <>
+                {row[col.key]}
+            </>
+        )
+    }
     const renderTableHead = () => {
         return (
             <TableRow>
@@ -66,7 +131,7 @@ export const BasicTable: React.FC<IProps> = ({columns, rows}) => {
                                 }}>
                                                 {sort ? <ArrowDropDown/> : <ArrowDropUp/>}
                                     {col.title}
-                                            </span> :
+                                </span> :
                                 col.title}
                         </TableCell>))
                 }
@@ -74,39 +139,16 @@ export const BasicTable: React.FC<IProps> = ({columns, rows}) => {
         )
     };
     const renderTableBody = () => {
+        const isPagination = pagination ? sortArray.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : rows;
         return (
-            sortArray.slice(start, end).map((row: any) => <TableRow key={row.id}>
+            isPagination.map((row: any) => <TableRow key={row.id}>
                     {columns.map((col: any) =>
                         <TableCell
                             align="center"
                             key={col.key}
                             style={styles.tableCellRows}
                         >
-                            {
-                                edit ? row.id === idRow ? col.edit === true ?
-                                            <>
-                                                <Done onClick={() => handleSubmit('put')}/>
-                                                <Close onClick={() => setEdit(false)}/>
-                                            </> :
-                                            <TextField variant="standard" onChange={e => setDataRow(() => {
-                                                const newData = {...dataRow};
-                                                // @ts-ignore
-                                                newData[col.key] = e.target.value
-                                                return newData
-                                            })}
-                                            /> :
-                                        row[col.key] :
-                                    <>
-                                        {col.edit ? <Edit
-                                            onClick={() => {
-                                                setIdRow(row.id);
-                                                setEdit(true);
-                                            }
-                                            }/> : <></>}
-                                        {col.delete ? <Delete style={styles.deleteIcon}
-                                                              onClick={() => deleteRow(row.id)}/> : <></>}
-                                    </>}
-                            {edit ? <></> : row[col.key]}
+                            {checkRenderBody(row, col)}
                         </TableCell>
                     )}
                 </TableRow>
@@ -114,18 +156,14 @@ export const BasicTable: React.FC<IProps> = ({columns, rows}) => {
         )
     };
     const renderTableFooter = () => {
-        return (
-            <TableRow>
-                <Pagination
-                    page={currentPage}
-                    count={Math.round(rows.length / pages)}
-                    variant="outlined"
-                    shape="rounded"
-                    onChange={handleChange}
-                    style={styles.pagination}
-                    renderItem={(item) => <PaginationItem {...item} style={styles.paginationItem}/>}/>
-            </TableRow>
-        )
+        if (!pagination) return <></>
+        return <TablePagination
+            count={rows.length}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+        />
     };
     const renderDialog = () => {
         return (

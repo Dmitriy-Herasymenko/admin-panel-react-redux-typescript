@@ -76,7 +76,7 @@ export const TodosList: React.FC = () => {
     return (
         <div style={{display: 'flex', flexDirection: 'column', width: '100%'}}>
             <Modal settings={modalSettings} />
-            <BasicTable columns={columns} rows={filterTodos}/>
+            <BasicTable columns={columns} rows={filterTodos} pagination={true} />
         </div>
 
     );
