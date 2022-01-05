@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {tableReducer} from "../../store/reducers/table/tableReducer";
+import {Pagination} from "./pagination";
 import {
     Table,
     TableBody,
@@ -16,12 +17,11 @@ import {
     DialogTitle,
     TableFooter,
 } from '@mui/material';
-import TablePagination from '@mui/material/TablePagination';
 import {Edit, Done, Close, Delete, ArrowDropDown, ArrowDropUp} from "@mui/icons-material";
 import {sortRows} from "./sortRows";
-
 import {IProps} from "../../types/table";
 import {styles} from "./styles";
+
 
 export const BasicTable: React.FC<IProps> = ({columns, rows, pagination}) => {
     const dispatch = useDispatch();
@@ -34,7 +34,6 @@ export const BasicTable: React.FC<IProps> = ({columns, rows, pagination}) => {
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-
     const deleteRow = (id: number) => {
         setIdRow(id);
         setOpenDialog(true)
@@ -43,20 +42,6 @@ export const BasicTable: React.FC<IProps> = ({columns, rows, pagination}) => {
     const handleSubmit = (typeRequest: string) => {
         dispatch(tableReducer.actions.ADD_TABLE_ITEMS({...dataRow, id: idRow, typeRequest}));
         setEdit(false)
-    };
-
-    const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
-        newPage: number,
-    ) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
     };
 
     const checkRenderBody = (row: any, col: any) => {
@@ -157,12 +142,12 @@ export const BasicTable: React.FC<IProps> = ({columns, rows, pagination}) => {
     };
     const renderTableFooter = () => {
         if (!pagination) return <></>
-        return <TablePagination
+        return <Pagination
             count={rows.length}
             page={page}
-            onPageChange={handleChangePage}
             rowsPerPage={rowsPerPage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
+            setPage={setPage}
+            setRowsPerPage={setRowsPerPage}
         />
     };
     const renderDialog = () => {
