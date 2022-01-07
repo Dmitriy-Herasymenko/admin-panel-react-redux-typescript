@@ -6,7 +6,7 @@ import {BasicTable} from "../../modules/table";
 import {Modal} from "../../modules/modal";
 import {modalReducer} from "../../store/reducers/modal/modalReducer";
 import {tableReducer} from "../../store/reducers/table/tableReducer";
-import {IModalTypeContent} from "../../types/modal";
+import {IModalTypeContent} from "../../types";
 
 const columns = [
     {title: 'Title', key: 'title', sort: true},
@@ -66,7 +66,7 @@ export const TodosList: React.FC = () => {
     if (loading) return <h1>Loading...</h1>;
     if (error) return <h1>{error}</h1>;
 
-    const filterTodos = todos.map((todo: any) => {
+    const filterTodos = todos.map((todo) => {
         return ({
             ...todo,
             completed: todo.completed ? 'Completed' : 'Await'

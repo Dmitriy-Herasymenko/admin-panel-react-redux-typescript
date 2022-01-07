@@ -12,7 +12,7 @@ const initialState: todosState = {
 export const deleteTodo = (props: any) => async (dispatch: AppDispatch) => {
     try {
         dispatch(todosReducer.actions.DELETE_TODOS_FETCH());
-        const response = await axios.delete<any>(`https://jsonplaceholder.typicode.com/posts/${props.id}`);
+        await axios.delete<any>(`https://jsonplaceholder.typicode.com/posts/${props.id}`);
         dispatch(todosReducer.actions.DELETE_TODOS_SUCCESS(props.id))
     } catch (e) {
         // @ts-ignore

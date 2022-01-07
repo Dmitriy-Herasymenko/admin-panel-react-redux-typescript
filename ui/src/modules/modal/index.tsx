@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 import {useDispatch} from "react-redux";
 import {modalReducer} from '../../store/reducers/modal/modalReducer'
-import {IModalSettings} from "../../types/modal";
+import {IModalSettings} from "../../types";
 import {
     TextField,
     Dialog,
@@ -24,7 +24,7 @@ interface IDataState {
 
 export const Modal: React.FC<IModalSettings> = ({settings}) => {
     const dispatch = useDispatch();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState<boolean>(false);
     const [data, setData] = React.useState<IDataState>({});
 
     const handleClickOpen = () => setOpen(true);
