@@ -1,40 +1,50 @@
+import React, {useState} from "react";
 import {TableBody, TableCell, TableRow, TextField} from "@mui/material";
-import {styles} from "../styles";
-import React from "react";
 import {Close, Delete, Done, Edit} from "@mui/icons-material";
+import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../hooks/redux";
+import {tableReducer} from "../../../store/reducers/table/tableReducer";
+import {sortRows} from "../utils/sortRows";
+import {ITableProps, IColumn} from "../../../types";
+import {styles} from "../styles";
 
-export  const BodyTable = ({columns, rows, sortArray, pagination, setDataRow, dataRow, handleSubmit, setEdit, edit, idRow, setIdRow, setOpenDialog}:any) => {
+
+export const BodyTable: React.FC<ITableProps> = ({
+                              columns,
+                              rows,
+                              pagination
+                          }) => {
+
+    const dispatch = useDispatch();
     const {page, rowsPerPage} = useAppSelector(state => state.paginationReducer);
+    const {isSort, isEdit, idRow} = useAppSelector(state => state.tableReducer);
+    const [dataRow, setDataRow] = useState({});
 
-    const deleteRow = (id: number) => {
-        setIdRow(id);
-        setOpenDialog(true)
-        setDataRow({});
-    };
-    const checkRenderBody = (row: any, col: any) => {
-        if (row.id === idRow && edit) return (
+    const checkRenderBody = (row:Record<string, any>, col:IColumn) => {
+        if (row.id === idRow && isEdit) return (
             <>
                 {
                     !col.edit ?
                         <>
                             <TextField
                                 variant="standard"
-                                onChange={e =>  setDataRow( () => {
-                                    const newData = {...dataRow};
-                                    // @ts-ignore
+                                onChange={e => setDataRow(() => {
+                                    const newData:Record<string, any> = {...dataRow};
                                     newData[col.key] = e.target.value
                                     return newData
                                 })
                                 }
-
-
-
                             />
-                            <Done onClick={() => handleSubmit('put')}/>
+                            <Done onClick={() => {
+                                dispatch(tableReducer.actions.ADD_TABLE_ITEMS(
+                                    {
+                                        ...dataRow,
+                                        idRow,
+                                        typeRequest: 'put'
+                                    }))
+                            }}/>
                             <Close onClick={() => {
-                                setEdit(false)
-                                console.log('sss', edit)
+                                dispatch(tableReducer.actions.IS_DIALOG( false))
                             }}/>
                         </>
                         : <></>
@@ -47,15 +57,20 @@ export  const BodyTable = ({columns, rows, sortArray, pagination, setDataRow, da
                 {col.edit ?
                     <Edit
                         onClick={() => {
-                            setIdRow(row.id);
-                            setEdit(true)
+                            dispatch(tableReducer.actions.EDIT_TABLE_ITEMS({
+                                isEdit: true,
+                                idRow: row.id
+                            }))
                         }}
                     /> : <></>
                 }
                 {col.delete ?
                     <Delete
                         style={styles.deleteIcon}
-                        onClick={() => deleteRow(row.id)}
+                        onClick={() => {
+                            dispatch(tableReducer.actions.DIALOG_TABLE({isOpenDialog: true, idRow: row.id}));
+                            setDataRow({})
+                        }}
                     /> : <></>
                 }
             </>
@@ -65,13 +80,14 @@ export  const BodyTable = ({columns, rows, sortArray, pagination, setDataRow, da
                 {row[col.key]}
             </>
         )
-    }
+    };
 
-    const isPagination = pagination ? sortArray.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : rows;
+    const sorted = sortRows(rows, isSort);
+    const isPagination = pagination ? sorted.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : rows;
     return (
-        isPagination.map((row: any) => <TableBody key={row.id}>
-                <TableRow key={row.id}>
-                    {columns.map((col: any) =>
+        isPagination.map((row:Record<string, any>) => <TableBody key={row.id}>
+                <TableRow>
+                    {columns.map((col) =>
                         <TableCell
                             align="center"
                             key={col.key}
@@ -82,7 +98,5 @@ export  const BodyTable = ({columns, rows, sortArray, pagination, setDataRow, da
                     )}
                 </TableRow>
             </TableBody>
-
-)
-)
+        ))
 };

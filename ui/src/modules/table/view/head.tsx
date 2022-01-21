@@ -1,11 +1,16 @@
+import React from "react";
 import {TableCell, TableRow} from "@mui/material";
 import {TableHead} from "@mui/material";
-import {styles} from "../styles";
-import {sortRows} from "../sortRows";
 import {ArrowDropDown, ArrowDropUp} from "@mui/icons-material";
-import React from "react";
+import {useAppSelector} from "../../../hooks/redux";
+import {useDispatch} from "react-redux";
+import {tableReducer} from "../../../store/reducers/table/tableReducer";
+import {styles} from "../styles";
 
-export const HeadTable = ({columns, rows, sort, setSort, setSortArray}:any) => {
+export const HeadTable = ({columns}:any) => {
+    const dispatch = useDispatch();
+    const {isSort} = useAppSelector(state => state.tableReducer);
+
     return (
         <TableHead>
             <TableRow>
@@ -17,12 +22,8 @@ export const HeadTable = ({columns, rows, sort, setSort, setSortArray}:any) => {
                             style={styles.tableCellColumns}
                         >
                             {col.sort ?
-                                <span onClick={() => {
-                                    const sorted = sortRows(rows, sort)
-                                    setSort(!sort)
-                                    setSortArray(sorted)
-                                }}>
-                                                {sort ? <ArrowDropDown/> : <ArrowDropUp/>}
+                                <span onClick={() => dispatch(tableReducer.actions.SORT_TABLE_ITEMS(!isSort))}>
+                                                {isSort ? <ArrowDropUp/> : <ArrowDropDown/>}
                                     {col.title}
                                 </span> :
                                 col.title}

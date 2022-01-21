@@ -1,7 +1,7 @@
 import {IUser, userState} from "../../../types/user";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppDispatch} from "../../index";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 
 const initialState: userState = {
     loading: false,
@@ -15,8 +15,8 @@ export const fetchUsers = () => async (dispatch: AppDispatch) => {
         const response = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users');
         dispatch(usersReducer.actions.FETCH_USERS_SUCCESS(response.data))
     } catch (e) {
-        // @ts-ignore
-        dispatch(usersReducer.actions.FETCH_USERS_ERROR(e.message))
+        const err = e as AxiosError
+        dispatch(usersReducer.actions.FETCH_USERS_ERROR(err.response?.data))
     }
 };
 

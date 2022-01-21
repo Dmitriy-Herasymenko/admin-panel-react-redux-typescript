@@ -27,6 +27,7 @@ export const Modal: React.FC<IModalSettings> = ({settings}) => {
     const [open, setOpen] = React.useState<boolean>(false);
     const [data, setData] = React.useState<IDataState>({});
 
+
     const handleClickOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const handleSetData = () => {

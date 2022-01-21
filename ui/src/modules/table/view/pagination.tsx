@@ -4,7 +4,11 @@ import TablePagination from "@mui/material/TablePagination";
 import {useAppSelector} from "../../../hooks/redux";
 import {paginationReducer} from "../../../store/reducers/pagination/paginationReducer";
 
-export const Pagination = ({count}: any) => {
+interface IProps {
+    count: number
+}
+
+export const Pagination: React.FC<IProps> = ({count}) => {
     const dispatch = useDispatch();
     const {page, rowsPerPage} = useAppSelector(state => state.paginationReducer);
 

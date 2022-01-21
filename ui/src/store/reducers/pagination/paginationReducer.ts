@@ -6,15 +6,14 @@ const initialState: any = {
     rowsPerPage: 10
 };
 
-
 export const paginationReducer = createSlice({
     name: 'modal',
     initialState,
     reducers: {
-        SET_PAGE(state, actions: PayloadAction<any>) {
+        SET_PAGE(state, actions: PayloadAction<number>) {
             state.page = actions.payload
         },
-        SET_ROWS_PER_PAGE(state, actions: PayloadAction<any>) {
+        SET_ROWS_PER_PAGE(state, actions: PayloadAction<number>) {
             state.rowsPerPage = actions.payload
         }
     }

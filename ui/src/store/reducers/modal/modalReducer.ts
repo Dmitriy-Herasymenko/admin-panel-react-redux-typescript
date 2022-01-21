@@ -1,4 +1,4 @@
-import { modalState } from "../../../types/modal";
+import { modalState } from "../../../types";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 const initialState: modalState = {
@@ -6,12 +6,11 @@ const initialState: modalState = {
     modalData: {}
 };
 
-
 export const modalReducer = createSlice({
     name: 'modal',
     initialState,
     reducers: {
-        ADD_MODAL_ITEMS(state, actions: PayloadAction<any>) {
+        ADD_MODAL_ITEMS(state, actions: PayloadAction<{[key: string]: string}>) {
             state.modalData = actions.payload;
             state.status = true
         },

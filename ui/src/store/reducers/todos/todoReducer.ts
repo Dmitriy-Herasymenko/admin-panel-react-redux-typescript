@@ -1,7 +1,13 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {ITodo, todosState} from "../../../types/todo";
 import {AppDispatch} from "../../index";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
+
+interface IPutProps {
+    idRow?: number,
+    title?: string,
+    typeRequest?: string
+}
 
 const initialState: todosState = {
     loading: false,
@@ -12,26 +18,28 @@ const initialState: todosState = {
 export const deleteTodo = (props: any) => async (dispatch: AppDispatch) => {
     try {
         dispatch(todosReducer.actions.DELETE_TODOS_FETCH());
-        await axios.delete<any>(`https://jsonplaceholder.typicode.com/posts/${props.id}`);
+        await axios.delete(`https://jsonplaceholder.typicode.com/posts/${props.idRow}`);
         dispatch(todosReducer.actions.DELETE_TODOS_SUCCESS(props.id))
     } catch (e) {
-        // @ts-ignore
-        dispatch(todosReducer.actions.FETCH_TODOS_ERROR(e.error))
+        const err = e as AxiosError
+        dispatch(todosReducer.actions.FETCH_TODOS_ERROR(err.response?.data))
     }
 };
 
-export const putTodo = (props: any) => async (dispatch: AppDispatch) => {
+
+export const putTodo = (props:IPutProps) => async (dispatch: AppDispatch) => {
+    console.log("props", props)
     try {
         dispatch(todosReducer.actions.PUT_TODOS_FETCH());
-        const response = await axios.put<any>(`https://jsonplaceholder.typicode.com/posts/${props.id}`, {
-            id: props.id,
+        const response = await axios.put<any>(`https://jsonplaceholder.typicode.com/posts/${props.idRow}`, {
+            id: props.idRow,
             title: props.title,
             userId: Date.now()
         });
         dispatch(todosReducer.actions.PUT_TODOS_SUCCESS(response.data))
     } catch (e) {
-        // @ts-ignore
-        dispatch(todosReducer.actions.FETCH_TODOS_ERROR(e.error))
+        const err = e as AxiosError
+        dispatch(todosReducer.actions.FETCH_TODOS_ERROR(err.response?.data))
     }
 };
 
@@ -45,8 +53,8 @@ export const postTodo = (props: any) => async (dispatch: AppDispatch) => {
         });
         dispatch(todosReducer.actions.POST_TODOS_SUCCESS(response.data))
     } catch (e) {
-        // @ts-ignore
-        dispatch(todosReducer.actions.FETCH_TODOS_ERROR(e.error))
+        const err = e as AxiosError
+        dispatch(todosReducer.actions.FETCH_TODOS_ERROR(err.response?.data))
     }
 };
 
@@ -56,8 +64,8 @@ export const fetchTodos = () => async (dispatch: AppDispatch) => {
         const response = await axios.get<ITodo[]>('https://jsonplaceholder.typicode.com/todos');
         dispatch(todosReducer.actions.FETCH_TODOS_SUCCESS(response.data))
     } catch (e) {
-        // @ts-ignore
-        dispatch(todosReducer.actions.FETCH_TODOS_ERROR(e.error))
+        const err = e as AxiosError
+        dispatch(todosReducer.actions.FETCH_TODOS_ERROR(err.response?.data))
     }
 }
 

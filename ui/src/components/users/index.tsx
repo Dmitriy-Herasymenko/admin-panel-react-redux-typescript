@@ -15,6 +15,7 @@ const columns = [
 export const UsersList: React.FC = () => {
     const dispatch = useDispatch();
     const {users, loading, error} = useAppSelector(state => state.usersReducer);
+
     useEffect(() => {
         dispatch(fetchUsers())
     }, [dispatch]);

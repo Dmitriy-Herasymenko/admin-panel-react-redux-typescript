@@ -42,6 +42,11 @@ export const TodosList: React.FC = () => {
     const {modalData, status} = useAppSelector(state => state.modalReducer);
     const {tableData, statusTablePut, statusTableDelete} = useAppSelector(state => state.tableReducer);
 
+    console.log(
+        "status", statusTablePut,
+        "tableData", tableData
+    )
+
     useEffect(() => {
         dispatch(fetchTodos());
     }, [dispatch]);
@@ -53,7 +58,7 @@ export const TodosList: React.FC = () => {
     }, [dispatch, status, modalData]);
     useEffect(() => {
         if(statusTablePut) {
-            dispatch(putTodo(tableData));
+            if(tableData)dispatch(putTodo(tableData));
             dispatch(tableReducer.actions.CLEAR_TABLE_ITEMS());
         }
         if(statusTableDelete) {
@@ -78,6 +83,5 @@ export const TodosList: React.FC = () => {
             <Modal settings={modalSettings} />
             <BasicTable columns={columns} rows={filterTodos} pagination={true} />
         </div>
-
     );
 };
