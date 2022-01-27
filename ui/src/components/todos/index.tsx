@@ -31,18 +31,6 @@ const modalSettings:IModalSettings = {
             label: 'Title',
             type: 'TextField',
             variant: 'standard'
-        },
-        {
-            key: 'age',
-            label: 'Title',
-            type: 'TextField',
-            variant: 'standard'
-        },
-        {
-            key: 'sex',
-            label: 'Title',
-            type: 'TextField',
-            variant: 'standard'
         }
     ],
     actionsContent: [
@@ -89,7 +77,7 @@ export const TodosList: React.FC = () => {
     if (loading) return <h1>Loading...</h1>;
     if (error) return <h1>{error}</h1>;
     
-    const filterTodos = todos.map((todo) => {
+    const filterTodos = todos.map((todo:any) => {
         return({
             ...todo,
             completed: todo.completed ? 'Completed' : 'Await'
@@ -106,7 +94,7 @@ export const TodosList: React.FC = () => {
         }>
             <Modal settings={modalSettings}/>
             <BasicTable columns={columns}
-                rows={filterTodos}
+                rows={todos}
                 pagination={true}/>
         </div>
     );

@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {todosState} from "../../../types";
+import {todosState} from "./types";
 import {getTodo, postTodo, delTodo, putTodo} from "./actions";
 
 const initialState: todosState = {

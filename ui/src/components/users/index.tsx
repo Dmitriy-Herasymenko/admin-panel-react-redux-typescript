@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../hooks/redux";
-import {fetchUsers} from "../../store/reducers/users/userReducers";
+import {getUsers} from "../../store/reducers/users/actions";
 import {BasicTable} from "../../modules/table";
 
 const columns = [
@@ -17,7 +17,7 @@ export const UsersList: React.FC = () => {
     const {users, loading, error} = useAppSelector(state => state.usersReducer);
 
     useEffect(() => {
-        dispatch(fetchUsers())
+        dispatch(getUsers())
     }, [dispatch]);
 
     if (loading) return <h1>Loading...</h1>;

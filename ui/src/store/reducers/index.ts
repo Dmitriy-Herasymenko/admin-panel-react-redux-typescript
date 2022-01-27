@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import usersReducer from "./users/userReducers";
+import usersReducer from "./users/reducers";
 import todosReducer from "./todos/reducer";
 import modalReducer from "./modal/modalReducer";
 import tableReducer from "./table/tableReducer";
