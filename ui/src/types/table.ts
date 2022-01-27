@@ -13,7 +13,7 @@ export interface ITableState {
     isEdit: boolean,
     isOpenDialog: boolean,
     idRow: number,
-    tableData?: ITableData
+    tableData: ITableData
 }
 
 export interface IColumn {

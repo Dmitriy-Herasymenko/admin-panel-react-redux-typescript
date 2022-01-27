@@ -1,108 +1,34 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import {useDispatch} from "react-redux";
-import {modalReducer} from '../../store/reducers/modal/modalReducer'
+import React, {useState} from 'react';
 import {IModalSettings} from "../../types";
 import {
-    TextField,
+    Button,
     Dialog,
-    DialogContent,
-    DialogContentText,
     DialogTitle,
-    Select,
-    MenuItem,
-    FormControl,
-    Box,
-    InputLabel,
-    OutlinedInput
 } from '@mui/material';
+import {Content, Action} from './view/index'
 import {styles} from './styles';
 
 interface IDataState {
     [key: string] : string
 }
 
-export const Modal: React.FC<IModalSettings> = ({settings}) => {
-    const dispatch = useDispatch();
-    const [open, setOpen] = React.useState<boolean>(false);
-    const [data, setData] = React.useState<IDataState>({});
+interface Iprops {
+    settings: IModalSettings;
+}
 
+export const Modal: React.FC<Iprops> = ({settings}) => {
+    const [isOpen, setIsOpen] = useState<boolean>(false);
+    const [data, setData] = useState<IDataState>({});
 
-    const handleClickOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-    const handleSetData = () => {
-        dispatch(modalReducer.actions.ADD_MODAL_ITEMS(data));
-        handleClose();
-    };
+    const handleIsOpen = () => setIsOpen(!isOpen);
+
     return (
         <div style={{padding: '25px'}}>
-            <Button variant="outlined" onClick={handleClickOpen} style={styles.btn}>{settings.titleBtn}</Button>
-            <Dialog open={open} onClose={handleClose}>
+            <Button variant="outlined" onClick={handleIsOpen} style={styles.btn}>{settings.titleBtn}</Button>
+            <Dialog open={isOpen} onClose={handleIsOpen}>
                 <DialogTitle>{settings.title}</DialogTitle>
-                <DialogContent style={{padding: '25px'}}>
-                    <DialogContentText>{settings.textContent}</DialogContentText>
-                    <Box
-                        component="form"
-                        sx={styles.box}
-                        noValidate
-                        autoComplete="off"
-                    >
-                        {settings.typeContent.map((content, index) => {
-                                switch (content.type) {
-                                    case 'TextField':
-                                        return (
-                                            <TextField
-                                                key={index}
-                                                required
-                                                variant={content.variant}
-                                                id="outlined-required"
-                                                label={content.label}
-                                                onChange={(e) => setData(() => {
-                                                    const newData = {...data};
-                                                    newData[content.key] = e.target.value;
-                                                    return newData;
-                                                })}
-                                            />
-                                        );
-
-                                    case 'Select':
-                                        return (
-                                            <FormControl key={index} sx={styles.formControl}>
-                                                <InputLabel id="demo-multiple-name-label">{content.text}</InputLabel>
-                                                <Select
-                                                    labelId="demo-simple-select-label"
-                                                    id="demo-simple-select"
-                                                    input={<OutlinedInput label={content.text}/>}
-                                                    label={content.label}
-                                                    defaultValue={content.items?.[0].value}
-                                                    onChange={e => setData(() => {
-                                                        const newData = {...data};
-                                                        newData[content.key] = e.target.value;
-                                                        return newData;
-                                                    })}
-                                                >
-                                                    {content.items?.map((item, index) => <MenuItem
-                                                        key={index}
-                                                        value={item.value}>{item.text}</MenuItem>)}
-                                                </Select>
-                                            </FormControl>
-                                        );
-                                    default:
-                                        return (<></>)
-                                }
-                            })}
-
-                    </Box>
-                </DialogContent>
-                <div style={styles.actions}>
-                    {settings.actionsContent.map((btn, index) => <Button
-                        key={index}
-                        style={styles.btnActions}
-                        onClick={btn.click === 'handleClose' ? handleClose : handleSetData}>
-                        {btn.text}
-                    </Button>)
-                    }
-                </div>
+                <Content settings={settings} data={data} setData={setData}/>
+                <Action settings={settings} data={data} handleClose={handleIsOpen}/>
             </Dialog>
         </div>
     )

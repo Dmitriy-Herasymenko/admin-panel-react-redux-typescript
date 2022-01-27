@@ -18,17 +18,19 @@ export interface IModalTypeContent {
     items?: IModalActionsItems[];
 }
 
+
 export interface IModalSettings {
-    settings: {
         titleBtn: string;
         title: string;
         textContent: string;
         typeContent: IModalTypeContent[];
         actionsContent: IModalActionsContent[];
-    }
+ }
+ 
+export interface IModalData {
+    [key: string]: string | number | boolean
 }
-
 export interface modalState {
-    modalData: {[key: string]: string};
+    modalData: IModalData;
     status: boolean;
 }
