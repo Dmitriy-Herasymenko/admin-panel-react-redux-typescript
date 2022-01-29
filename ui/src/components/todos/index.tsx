@@ -47,7 +47,7 @@ const modalSettings:IModalSettings = {
 
 export const TodosList: React.FC = () => {
     const dispatch = useDispatch();
-    const {todos, loading, error} = useAppSelector(state => state.todosReducer);
+    const {todos, isLoading, error} = useAppSelector(state => state.todosReducer);
     const {modalData, status} = useAppSelector(state => state.modalReducer);
     const {tableData, statusTablePut, statusTableDelete} = useAppSelector(state => state.tableReducer);
 
@@ -74,7 +74,7 @@ export const TodosList: React.FC = () => {
 
     }, [dispatch, statusTablePut, statusTableDelete, tableData]);
 
-    if (loading) return <h1>Loading...</h1>;
+    if (isLoading) return <h1>Loading...</h1>;
     if (error) return <h1>{error}</h1>;
 
     return (

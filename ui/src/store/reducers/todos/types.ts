@@ -6,7 +6,7 @@ export interface ITodo {
 
 export interface todosState {
     todos: ITodo[];
-    loading: boolean;
+    isLoading: boolean;
     error: null | string;
 }
 
@@ -33,8 +33,3 @@ export interface IPut {
     title: string,
 }
 
-export const initialState: todosState = {
-    loading: false,
-    error: null,
-    todos: []
-};

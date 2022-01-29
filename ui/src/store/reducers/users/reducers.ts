@@ -3,7 +3,7 @@ import {getUsers} from "./actions";
 import {userState, IUser} from "./types";
 
 const initialState: userState = {
-    loading: false,
+    isLoading: false,
     error: null,
     users: []
 };
@@ -14,17 +14,17 @@ const usersReducer = createSlice({
     reducers: {},
     extraReducers: {
         [getUsers.pending.type]: (state) => {
-            state.loading = true;
+            state.isLoading = true;
             state.error = null;
             state.users = [];
         },
         [getUsers.fulfilled.type]: (state, actions: PayloadAction<IUser[]>) => {
-            state.loading = false;
+            state.isLoading = false;
             state.error = null;
             state.users = actions.payload;
         },
         [getUsers.rejected.type]: (state, actions: PayloadAction<string>) => {
-            state.loading = false;
+            state.isLoading = false;
             state.error = actions.payload;
             state.users = [];
         }

@@ -14,13 +14,13 @@ const columns = [
 
 export const UsersList: React.FC = () => {
     const dispatch = useDispatch();
-    const {users, loading, error} = useAppSelector(state => state.usersReducer);
+    const {users, isLoading, error} = useAppSelector(state => state.usersReducer);
 
     useEffect(() => {
         dispatch(getUsers())
     }, [dispatch]);
 
-    if (loading) return <h1>Loading...</h1>;
+    if (isLoading) return <h1>Loading...</h1>;
     if (error) return <h1>{error}</h1>;
 
     return (

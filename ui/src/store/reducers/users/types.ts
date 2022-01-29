@@ -9,6 +9,6 @@ export interface IUser {
 
 export interface userState {
     users: IUser[];
-    loading: boolean;
+    isLoading: boolean;
     error: null | string;
 }
