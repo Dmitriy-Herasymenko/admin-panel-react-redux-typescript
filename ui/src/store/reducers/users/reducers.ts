@@ -24,7 +24,6 @@ const usersReducer = createSlice({
             state.users = actions.payload;
         },
         [getUsers.rejected.type]: (state, actions: PayloadAction<string>) => {
-            console.log("ass", actions.payload)
             state.loading = false;
             state.error = actions.payload;
             state.users = [];

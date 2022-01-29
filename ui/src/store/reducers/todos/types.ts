@@ -17,7 +17,7 @@ export interface IPutProps {
 }
 
 export interface IPostProps {
-    [key:string]: string | boolean | number,
+    [key : string]: string | boolean | number
 }
 
 export interface IPost {
@@ -28,12 +28,9 @@ export interface IPost {
 
 export interface IPut {
     id: number,
-    todo: {
-        id: number,
-        title: string,
-        userId: number
-    }
-
+    idRow: number,
+    userId: number
+    title: string,
 }
 
 export const initialState: todosState = {

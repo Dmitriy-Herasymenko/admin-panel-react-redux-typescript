@@ -1,6 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {todosState} from "./types";
+import {createSlice, PayloadAction, current} from "@reduxjs/toolkit";
 import {getTodo, postTodo, delTodo, putTodo} from "./actions";
+import {todosState, ITodo} from "./types";
 
 const initialState: todosState = {
     loading: false,
@@ -12,56 +12,82 @@ const todosReducer = createSlice({
     name: 'todos',
     initialState,
     reducers: {},
-    extraReducers: builder => {
-        builder.addCase(getTodo.pending, (state) => {
+    extraReducers: {
+        [getTodo.pending.type]: (state) => {
             state.loading = true;
             state.error = null;
-        }).addCase(getTodo.fulfilled, (state, actions:any) => {
+            state.todos = [];
+        },
+        [getTodo.fulfilled.type]: (state, actions : PayloadAction < ITodo[] >) => {
             state.loading = false;
             state.error = null;
             state.todos = actions.payload;
-        }).addCase(getTodo.rejected, (state, actions) => {
+        },
+        [getTodo.rejected.type]: (state, actions : PayloadAction < string >) => {
             state.loading = false;
-            // state.error = actions.payload;
+            state.error = actions.payload;
             state.todos = [];
-        }).addCase(postTodo.pending, (state) => {
+        },
+        [postTodo.pending.type]: (state) => {
             state.loading = true;
             state.error = null;
-        }).addCase(postTodo.fulfilled, (state, actions) => {
-            console.log("ssss", actions.payload)
+        },
+        [postTodo.fulfilled.type]: (state, actions) => {
             state.loading = false;
             state.error = null;
+            console.log(current(state))
             state.todos = [
                 ...state.todos,
                 actions.payload
             ];
-        }).addCase(postTodo.rejected, (state, actions) => {
+        },
+        [postTodo.rejected.type]: (state, actions : PayloadAction < string >) => {
             state.loading = false;
-            // state.error = actions.payload;
+            state.error = actions.payload;
             state.todos = [];
-        }).addCase(delTodo.pending, (state) => {
+        },
+        [delTodo.pending.type]: (state) => {
             state.loading = true;
             state.error = null;
-        }).addCase(delTodo.fulfilled, (state, actions) => {
+        },
+        [delTodo.fulfilled.type]: (state, actions : PayloadAction < number | undefined >) => {
             state.todos = state.todos.filter(todo => todo.id !== actions.payload)
             state.loading = false;
             state.error = null;
-        }).addCase(delTodo.rejected, (state, actions) => {
+        },
+        [delTodo.rejected.type]: (state, actions : PayloadAction < string >) => {
             state.loading = false;
-            // state.error = actions.payload;
+            state.error = actions.payload;
             state.todos = [];
-        }).addCase(putTodo.pending, (state) => {
+        },
+        [delTodo.pending.type]: (state) => {
             state.loading = true;
             state.error = null;
-        }).addCase(putTodo.fulfilled, (state, actions) => {
+        },
+        [delTodo.fulfilled.type]: (state, actions : PayloadAction < number | undefined >) => {
+            state.todos = state.todos.filter(todo => todo.id !== actions.payload)
+            state.loading = false;
+            state.error = null;
+        },
+        [delTodo.rejected.type]: (state, actions : PayloadAction < string >) => {
+            state.loading = false;
+            state.error = actions.payload;
+            state.todos = [];
+        },
+        [putTodo.pending.type]: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        [putTodo.fulfilled.type]: (state, actions) => {
             state.loading = false;
             state.error = null;
             state.todos = state.todos.map(todo => todo.id === actions.payload.id ? actions.payload : todo);
-        }).addCase(putTodo.rejected, (state, actions) => {
+        },
+        [putTodo.rejected.type]: (state, actions : PayloadAction < string >) => {
             state.loading = false;
-            // state.error = actions.payload;
+            state.error = actions.payload;
             state.todos = [];
-        })
+        }
     }
 });
 
