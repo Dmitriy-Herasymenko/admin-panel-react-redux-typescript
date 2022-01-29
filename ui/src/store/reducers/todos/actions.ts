@@ -3,14 +3,20 @@ import {
     IPostProps,
     IPutProps,
     ITodo
-} from './types'
+} from './types';
+import axios,{AxiosError} from 'axios';
 
 
-export const getTodo = createAsyncThunk < ITodo[] > ('todos/fetchTodo', async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/todos');
-    const data: ITodo[] = await response.json()
-    return data
-})
+export const getTodo = createAsyncThunk('todos/fetchTodo', async (_, thunkAPI) => {
+    try {
+        const response = await axios.get<ITodo[]>('https://jsonplaceholder.typicode.com/todos');
+       return response.data
+    } catch (e) {
+        const err = e as AxiosError
+        return thunkAPI.rejectWithValue(err.message)
+    }
+});
+
 
 export const postTodo = createAsyncThunk('todos/postTodo', async (props: IPostProps) => {
     const todo = {

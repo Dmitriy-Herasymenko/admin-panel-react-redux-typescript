@@ -1,10 +1,13 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
-import {
-   IUser,
-} from './types'
+import {IUser} from './types'
+import axios,{AxiosError} from 'axios';
 
-export const getUsers = createAsyncThunk<IUser[]>('users/getUsers', async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/users');
-    const data: IUser[] = await response.json()
-    return data
-})
+export const getUsers = createAsyncThunk('users/getUsers', async (_, thunkAPI) => {
+    try {
+        const response = await axios.get<IUser[]>('https://jsonplaceholder.typicode.com/users');
+       return response.data
+    } catch (e) {
+        const err = e as AxiosError
+        return thunkAPI.rejectWithValue(err.message)
+    }
+});

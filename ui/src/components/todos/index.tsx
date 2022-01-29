@@ -76,13 +76,6 @@ export const TodosList: React.FC = () => {
 
     if (loading) return <h1>Loading...</h1>;
     if (error) return <h1>{error}</h1>;
-    
-    const filterTodos = todos.map((todo:any) => {
-        return({
-            ...todo,
-            completed: todo.completed ? 'Completed' : 'Await'
-        })
-    });
 
     return (
         <div style={
