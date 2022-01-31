@@ -2,15 +2,15 @@ import * as React from 'react';
 import {List, ListItemButton, ListItemIcon, ListItemText} from '@mui/material';
 import {BrowserRouter, Link, Route, Switch} from 'react-router-dom';
 import {links, routes} from "../../modules/routes";
-import {styles} from "./styles";
+import "./styles.scss";
 
 
 export const Sidebar: React.FC = () => {
     return (
-        <div style={styles.container}>
+        <div className='container'>
             <BrowserRouter>
                 <List
-                    sx={styles.list}
+                    className='container__list'
                     component="nav"
                     aria-labelledby="nested-list-subheader"
                 >
@@ -18,17 +18,16 @@ export const Sidebar: React.FC = () => {
                         links.map((link, index) =>
                             <ListItemButton key={index}>
                                 <ListItemIcon
-                                    style={styles.listItemIcon}
+                                    className='container__list-icon'
                                 >
                                     {link.icon}
                                 </ListItemIcon>
                                 <Link
                                     to={link.link}
-                                    style={styles.link}
+                                    className='container__list-link'
                                 >
                                     <ListItemText
-                                        primary={<span style={styles.listItemText}
-                                        >{link.title}</span>}
+                                        primary={<span  className='container__list-text'>{link.title}</span>}
                                     />
                                 </Link>
                             </ListItemButton>

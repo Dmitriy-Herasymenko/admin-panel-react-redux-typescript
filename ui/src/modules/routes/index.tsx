@@ -1,4 +1,3 @@
-import * as React from "react";
 import {Send, Drafts} from '@mui/icons-material';
 import {UsersList} from "../../components/users";
 import {TodosList} from "../../components/todos";
@@ -7,12 +6,12 @@ export const links = [
     {
         title: 'Users',
         link: '/users',
-        icon:  <Send  style={{fontSize: '1rem'}}/>
+        icon:  <Send  className='container__list-icon'/>
     },
     {
         title: 'Todos',
         link: '/todos',
-        icon:  <Drafts style={{fontSize: '1rem'}}/>
+        icon:  <Drafts className='container__list-icon'/>
     }
 ];
 
