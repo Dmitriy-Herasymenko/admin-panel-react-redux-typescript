@@ -15,7 +15,6 @@ export const BasicTable:React.FC<ITableProps> = ({columns, rows, pagination}) =>
                 <Table sx={styles.table}>
                     <HeadTable
                         columns={columns}
-                        rows={rows}
                     />
                     <BodyTable
                         rows={rows}
