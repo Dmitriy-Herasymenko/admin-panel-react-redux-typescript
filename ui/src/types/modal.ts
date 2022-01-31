@@ -4,7 +4,7 @@ interface IModalActionsContent {
     text: string;
 }
 
-interface IModalActionsItems {
+export interface IModalActionsItems {
     value: string;
     text: string;
 }
@@ -33,4 +33,8 @@ export interface IModalData {
 export interface modalState {
     modalData: IModalData;
     status: boolean;
+}
+
+export interface IDataState {
+    [key: string] : string
 }

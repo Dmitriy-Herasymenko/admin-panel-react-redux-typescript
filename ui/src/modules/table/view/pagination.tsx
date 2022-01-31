@@ -10,7 +10,7 @@ interface IProps {
 
 export const Pagination: React.FC<IProps> = ({count}) => {
     const dispatch = useDispatch();
-    const {page, rowsPerPage} = useAppSelector(state => state.paginationReducer);
+    const {pages, rowsPerPage} = useAppSelector(state => state.paginationReducer);
 
     const handleChangePage = (
         event: React.MouseEvent<HTMLButtonElement> | null,
@@ -25,7 +25,7 @@ export const Pagination: React.FC<IProps> = ({count}) => {
     return (
         <TablePagination
             count={count}
-            page={page}
+            page={pages}
             rowsPerPage={rowsPerPage}
             rowsPerPageOptions={[5, 10, 15, 20]}
             onPageChange={handleChangePage}

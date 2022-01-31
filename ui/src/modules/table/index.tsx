@@ -5,7 +5,7 @@ import {
     Paper,
 } from '@mui/material';
 import {HeadTable, BodyTable, FooterTable, DialogTable} from './view';
-import {ITableProps} from '../../types/';
+import {ITableProps} from '../../types/table';
 import {styles} from './styles';
 
 export const BasicTable:React.FC<ITableProps> = ({columns, rows, pagination}) => {

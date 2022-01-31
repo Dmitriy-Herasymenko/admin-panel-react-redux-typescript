@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../hooks/redux";
 import {tableReducer} from "../../../store/reducers/table/tableReducer";
 import {sortRows} from "../utils/sortRows";
-import {ITableProps, IColumn} from "../../../types";
+import {ITableProps, IColumn} from "../../../types/table";
 import {styles} from "../styles";
 
 
@@ -16,7 +16,7 @@ export const BodyTable: React.FC<ITableProps> = ({
                           }) => {
 
     const dispatch = useDispatch();
-    const {page, rowsPerPage} = useAppSelector(state => state.paginationReducer);
+    const {pages, rowsPerPage} = useAppSelector(state => state.paginationReducer);
     const {isSort, isEdit, idRow} = useAppSelector(state => state.tableReducer);
     const [dataRow, setDataRow] = useState({});
 
@@ -83,7 +83,7 @@ export const BodyTable: React.FC<ITableProps> = ({
     };
 
     const sorted = sortRows(rows, isSort);
-    const isPagination = pagination ? sorted.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) : rows;
+    const isPagination = pagination ? sorted.slice(pages * rowsPerPage, pages * rowsPerPage + rowsPerPage) : rows;
     return (
         isPagination.map((row:Record<string, any>) => <TableBody key={row.id}>
                 <TableRow>

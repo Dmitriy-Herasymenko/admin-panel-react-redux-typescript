@@ -31,6 +31,18 @@ const modalSettings:IModalSettings = {
             label: 'Title',
             type: 'TextField',
             variant: 'standard'
+        },
+        {
+            key: 'title',
+            label: 'Title',
+            type: 'Select',
+            variant: 'standard',
+            items: [
+                {
+                    value: 'ssss',
+                    text: 'ssss'
+                }
+            ]
         }
     ],
     actionsContent: [

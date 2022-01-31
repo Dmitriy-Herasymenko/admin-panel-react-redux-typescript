@@ -1,4 +1,4 @@
-import React from "react";
+
 import {useDispatch} from "react-redux";
 import {useAppSelector} from "../../../hooks/redux";
 import {tableReducer} from "../../../store/reducers/table/tableReducer";

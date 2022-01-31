@@ -5,9 +5,14 @@ import {ArrowDropDown, ArrowDropUp} from "@mui/icons-material";
 import {useAppSelector} from "../../../hooks/redux";
 import {useDispatch} from "react-redux";
 import {tableReducer} from "../../../store/reducers/table/tableReducer";
+import { IColumn } from "../../../types/table"
 import {styles} from "../styles";
 
-export const HeadTable = ({columns}:any) => {
+interface IProps {
+    columns: IColumn[]
+}
+
+export const HeadTable: React.FC<IProps> = ({columns}) => {
     const dispatch = useDispatch();
     const {isSort} = useAppSelector(state => state.tableReducer);
 
@@ -15,7 +20,7 @@ export const HeadTable = ({columns}:any) => {
         <TableHead>
             <TableRow>
                 {
-                    columns.map((col:any) => (
+                    columns.map((col) => (
                         <TableCell
                             align="center"
                             key={col.key}

@@ -9,11 +9,20 @@ import {
     InputLabel,
     OutlinedInput
 } from '@mui/material';
+import {IModalData, IModalSettings, IModalTypeContent, IModalActionsItems} from '../../../types'
 import {styles} from '../styles';
 
-export const Content = ({settings, data, setData}:any) => {
+interface IProps {
+    settings: IModalSettings;
+    data: IModalData,
+    setData: (data:{[key:string]: any}) => void;
 
-    const renderContent = (content:any, index:any) => {
+}
+
+
+export const Content: React.FC<IProps> = ({settings, data, setData}) => {
+    const renderContent = (content:IModalTypeContent, index:number) => {
+        console.log("sssss", content)
         switch (content.type) {
             case 'TextField':
                 return (
@@ -47,7 +56,7 @@ export const Content = ({settings, data, setData}:any) => {
                                 return newData;
                             })}
                         >
-                            {content.items?.map((item:any, index:any) => <MenuItem
+                            {content.items?.map((item:IModalActionsItems, index:number) => <MenuItem
                                 key={index}
                                 value={item.value}>{item.text}</MenuItem>)}
                         </Select>
@@ -66,7 +75,7 @@ export const Content = ({settings, data, setData}:any) => {
                         noValidate
                         autoComplete="off"
                     >
-                        {settings.typeContent.map((content:any, index:any) => renderContent(content, index))}
+                        {settings.typeContent.map((content, index) => renderContent(content, index))}
 
                     </Box>
         </DialogContent>

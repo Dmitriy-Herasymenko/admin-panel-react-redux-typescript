@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {IModalSettings} from "../../types";
+import {IModalSettings, IDataState} from "../../types";
 import {
     Button,
     Dialog,
@@ -7,10 +7,6 @@ import {
 } from '@mui/material';
 import {Content, Action} from './view/index'
 import {styles} from './styles';
-
-interface IDataState {
-    [key: string] : string
-}
 
 interface Iprops {
     settings: IModalSettings;
@@ -28,7 +24,7 @@ export const Modal: React.FC<Iprops> = ({settings}) => {
             <Dialog open={isOpen} onClose={handleIsOpen}>
                 <DialogTitle>{settings.title}</DialogTitle>
                 <Content settings={settings} data={data} setData={setData}/>
-                <Action settings={settings} data={data} handleClose={handleIsOpen}/>
+                <Action settings={settings} data={data} handleIsOpen={handleIsOpen}/>
             </Dialog>
         </div>
     )
