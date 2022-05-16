@@ -1,0 +1,23 @@
+@import '../../styles/variables';
+
+.modal-container {
+    padding: 25px;
+    .modal-btn{
+        margin-left: 120px;
+        margin-bottom: 25px;
+        color: $primary-color;
+        border-color: $primary-color;
+    }
+    .modal-actions {
+        display: flex;
+        justify-content: end;
+        .modal-btn {
+            padding: 8px 8px;
+            margin-bottom: 15px;
+            color: $primary-color;
+        }
+    }
+    .modal-dialog-content {
+        padding: 25px;
+    }
+}

@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {ITableState, ITableData} from '../../../types';
+import {ITableState, ITableData} from '../../../entities';
 
 const initialState: ITableState = {
     statusTablePut: false,

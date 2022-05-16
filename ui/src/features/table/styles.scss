@@ -1,0 +1,23 @@
+@import '../../styles/variables.scss'; 
+
+.table-container {
+   
+    .table-columns {
+        font-size: 12px;
+        font-weight: 600;
+    }
+    .table-rows {
+        font-size: 12px;
+        font-weight: initial;
+        .table-rows-delete{
+            color: #ff420f;
+        }
+    }
+    .table-dialog {
+        .table-dialog-actions {
+            .delete_btn {
+                color: #ff420f
+            }
+        }
+    }
+}

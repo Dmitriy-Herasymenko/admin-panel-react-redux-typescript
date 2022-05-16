@@ -1,0 +1,9 @@
+@import '../../styles/variables';
+
+.App-Bar {
+    background-color: #f2f2f2 !important;
+    color: $primary-color;
+    .App-Bar_box{
+        color: $primary-color
+    }
+}

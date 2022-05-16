@@ -1,5 +1,5 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
-import {IUser} from './types'
+import {IUser} from './types';
 import axios,{AxiosError} from 'axios';
 
 export const getUsers = createAsyncThunk('users/getUsers', async (_, thunkAPI) => {

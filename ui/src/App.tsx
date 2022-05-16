@@ -1,4 +1,4 @@
-import { ResponsiveDrawer } from './components/menu';
+import { ResponsiveDrawer } from './app/menu';
 
 export const App = () => {
   return (
