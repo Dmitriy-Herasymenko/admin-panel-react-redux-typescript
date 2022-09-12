@@ -19,7 +19,7 @@ export const BasicTable:React.FC<ITableProps> = ({columns, rows, pagination}) =>
                         rows={rows}
                         columns={columns}
                         pagination={pagination}
-                    />
+                    /> 
                     <FooterTable
                         count={rows.length}
                         pagination={pagination}
