@@ -1,15 +1,19 @@
-import { ConfigurableModuleBuilder, Module } from "@nestjs/common"
-import { SequelizeModule } from "@nestjs/sequelize"
+import {Module} from "@nestjs/common";
+import {SequelizeModule} from "@nestjs/sequelize";
 import { UsersModule } from './users/users.module';
-import { ConfigModule } from '@nestjs/config';
-import { User } from "./users/users.model";
+import {ConfigModule} from "@nestjs/config";
+import {User} from "./users/users.model";
+import { RolesModule } from './roles/roles.module';
+import {Role} from "./roles/roles.model";
+import {UserRoles} from "./roles/user-roles.model";;
+import * as path from 'path';
 
-@Module ({ 
+@Module({
     controllers: [],
     providers: [],
     imports: [
         ConfigModule.forRoot({
-            envFilePath: `.${process.env.NODE_ENV}.env`
+           envFilePath: `.${process.env.NODE_ENV}.env`
         }),
         SequelizeModule.forRoot({
             dialect: 'postgres',
@@ -17,11 +21,12 @@ import { User } from "./users/users.model";
             port: Number(process.env.POSTGRESS_PORT),
             username: process.env.POSTGRES_USER,
             password: process.env.POSTGRESS_PASSWORD,
-            database:  process.env.POSTGRES_DB,
-            models: [User],
+            database: process.env.POSTGRES_DB,
+            models: [User, Role, UserRoles],
             autoLoadModels: true
-          }),
+        }),
         UsersModule,
+        RolesModule
     ]
 })
 export class AppModule {}
