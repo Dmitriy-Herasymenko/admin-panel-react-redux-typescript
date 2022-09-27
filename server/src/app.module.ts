@@ -6,6 +6,7 @@ import {User} from "./users/users.model";
 import { RolesModule } from './roles/roles.module';
 import {Role} from "./roles/roles.model";
 import {UserRoles} from "./roles/user-roles.model";;
+import { AuthModule } from './auth/auth.module';
 import * as path from 'path';
 
 @Module({
@@ -26,7 +27,8 @@ import * as path from 'path';
             autoLoadModels: true
         }),
         UsersModule,
-        RolesModule
+        RolesModule,
+        AuthModule
     ]
 })
 export class AppModule {}
