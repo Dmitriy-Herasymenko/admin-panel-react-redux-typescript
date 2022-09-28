@@ -21,6 +21,8 @@ const users_model_1 = require("./users.model");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const role_auth_decorator_1 = require("../auth/role-auth.decorator");
 const role_guard_1 = require("../auth/role.guard");
+const add_role_dto_1 = require("./dto/add-role.dto");
+const ban_user_dto_1 = require("./dto/ban-user.dto");
 let UsersController = class UsersController {
     constructor(usersService) {
         this.usersService = usersService;
@@ -30,6 +32,12 @@ let UsersController = class UsersController {
     }
     getAll() {
         return this.usersService.getAllUsers();
+    }
+    addRole(dto) {
+        return this.usersService.addRole(dto);
+    }
+    ban(dto) {
+        return this.usersService.ban(dto);
     }
 };
 __decorate([
@@ -52,6 +60,30 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "getAll", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: "Add role" }),
+    (0, swagger_1.ApiResponse)({ status: 200 }),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, role_auth_decorator_1.Roles)("ADMIN"),
+    (0, common_1.UseGuards)(role_guard_1.RolesGuard),
+    (0, common_1.Post)("/role"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [add_role_dto_1.AddRoleDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "addRole", null);
+__decorate([
+    (0, swagger_1.ApiOperation)({ summary: "Ban user" }),
+    (0, swagger_1.ApiResponse)({ status: 200 }),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, role_auth_decorator_1.Roles)("ADMIN"),
+    (0, common_1.UseGuards)(role_guard_1.RolesGuard),
+    (0, common_1.Post)("/ban"),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [ban_user_dto_1.BanUserDto]),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "ban", null);
 UsersController = __decorate([
     (0, swagger_1.ApiTags)("Users"),
     (0, common_1.Controller)('users'),
