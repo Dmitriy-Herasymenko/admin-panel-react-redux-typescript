@@ -14,13 +14,14 @@ const validation_exception_1 = require("../exceptions/validation.exception");
 let ValidationPipe = class ValidationPipe {
     async transform(value, metadata) {
         const obj = (0, class_transformer_1.plainToClass)(metadata.metatype, value);
-        const error = await (0, class_validator_1.validate)(obj);
-        if (error.length) {
-            let message = error.map(err => {
-                return `${err.property} - ${Object.values(err.constraints).join(", ")}`;
+        const errors = await (0, class_validator_1.validate)(obj);
+        if (errors.length) {
+            let messages = errors.map(err => {
+                return `${err.property} - ${Object.values(err.constraints).join(', ')}`;
             });
-            throw new validation_exception_1.ValidationException(message);
+            throw new validation_exception_1.ValidationException(messages);
         }
+        return value;
     }
 };
 ValidationPipe = __decorate([
