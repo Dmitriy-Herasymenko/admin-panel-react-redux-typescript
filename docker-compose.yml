@@ -1,4 +1,4 @@
-version: '3.0'
+version: '3.8'
 
 services:
   frontend:
@@ -13,7 +13,8 @@ services:
       context: node_backend/.
     env_file:
       - node_backend/.development.env
-      - 5000:5000
+    ports:
+    - "5000:5000"
     command: npm run start:dev
     depends_on:
       - postgres

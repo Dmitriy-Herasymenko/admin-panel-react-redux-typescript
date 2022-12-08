@@ -1,5 +1,4 @@
 import React from "react";
-import {TableFooter, TableRow} from "@mui/material";
 import {Pagination} from "./pagination";
 
 interface IProps {

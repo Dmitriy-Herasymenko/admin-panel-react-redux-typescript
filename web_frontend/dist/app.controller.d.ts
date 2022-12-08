@@ -9,3 +9,5 @@ export declare class AppController {
         position: string;
     }[];
 }
+
+

@@ -1,9 +1,4 @@
 import React from 'react';
-import {
-    Table,
-    TableContainer,
-    Paper,
-} from '@mui/material';
 import {HeadTable, BodyTable, FooterTable, DialogTable} from './view';
 import {ITableProps} from '../../entities/table';
 import './styles.scss';

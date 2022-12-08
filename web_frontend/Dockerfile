@@ -8,7 +8,6 @@ COPY package.json ./
 COPY src ./src
 COPY public ./public
 COPY tsconfig.json ./
-#COPY package-lock.json ./
 
 RUN npm install
 

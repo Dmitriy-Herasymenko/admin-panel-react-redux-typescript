@@ -34,11 +34,11 @@ AppModule = __decorate([
             }),
             sequelize_1.SequelizeModule.forRoot({
                 dialect: 'postgres',
-                host: process.env.POSTGRES_HOST,
-                port: Number(process.env.POSTGRESS_PORT),
-                username: process.env.POSTGRES_USER,
-                password: process.env.POSTGRESS_PASSWORD,
-                database: process.env.POSTGRES_DB,
+                host: 'localhost',
+                port: 5432,
+                username: 'postgres',
+                password: 'root',
+                database: 'admin-panel',
                 models: [users_model_1.User, roles_model_1.Role, user_roles_model_1.UserRoles, posts_model_1.Post],
                 autoLoadModels: true
             }),

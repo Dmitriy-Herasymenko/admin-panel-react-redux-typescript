@@ -4,8 +4,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  ListItemAvatar,
-  Avatar,
 } from "@mui/material";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import { links, routes } from "../routes";
